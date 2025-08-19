@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Profile | Zakky D.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body {
+    background: #0a192f;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e6f1ff;
+    margin: 0;
+  }
+
+  .universe-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(ellipse at center, #0a192f 0%, #020c1b 100%);
+    opacity: 1;
+    transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .universe-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .digital-grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: 
+      linear-gradient(rgba(100, 255, 218, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 255, 218, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 40s linear infinite;
+    transform: perspective(800px) rotateX(75deg) translateZ(0);
+    filter: blur(0.5px);
+  }
+
+  @keyframes gridMove {
+    0% { transform: perspective(800px) rotateX(75deg) translateY(0) translateZ(0); }
+    100% { transform: perspective(800px) rotateX(75deg) translateY(-60px) translateZ(0); }
+  }
+
+  .digital-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #64ffda;
+    box-shadow: 0 0 15px 3px rgba(100, 255, 218, 0.9);
+    opacity: 0;
+    animation: 
+      particleFade 5s ease-in-out infinite,
+      particleMove 15s linear infinite;
+    filter: blur(1px);
+  }
+
+  @keyframes particleFade {
+    0%, 100% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 0.8; transform: scale(1); }
+  }
+
+  @keyframes particleMove {
+    to { transform: translateY(-150px) rotate(360deg); }
+  }
+
+  .digital-wormhole {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid rgba(100, 255, 218, 0.7);
+    box-shadow: 
+      0 0 50px 10px rgba(100, 255, 218, 0.6),
+      inset 0 0 30px 5px rgba(100, 255, 218, 0.4);
+    animation: 
+      wormholePulse 4s ease-in-out infinite,
+      wormholeRotate 20s linear infinite;
+    filter: blur(1px);
+    z-index: 1;
+  }
+
+  @keyframes wormholePulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+
+  @keyframes wormholeRotate {
+    to { transform: rotate(360deg); }
+  }
+
+  .digital-title {
+    position: relative;
+    color: #64ffda;
+    font-size: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8rem;
+    text-shadow: 
+      0 0 15px rgba(100, 255, 218, 0.8),
+      0 0 30px rgba(100, 255, 218, 0.5);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: 
+      titleFadeIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+      titleFloat 6s ease-in-out infinite;
+    animation-delay: 0.5s;
+    z-index: 2;
+    font-family: 'Inter', sans-serif;
+  }
+
+  @keyframes titleFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .digital-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #64ffda, transparent);
+    transform: translateX(-50%);
+    animation: titleUnderline 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 1s;
+    border-radius: 2px;
+    filter: blur(1px);
+  }
+
+  @keyframes titleUnderline {
+    to { width: 80%; }
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: 
+      twinkle 4s infinite alternate ease-in-out,
+      float 20s infinite linear;
+    filter: blur(0.5px);
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.2; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-60px) translateX(30px); }
+    100% { transform: translateY(0) translateX(0); }
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(17, 34, 64, 0.8);
+    border-radius: 16px;
+    box-shadow: 
+      0 15px 40px rgba(0, 0, 0, 0.6),
+      inset 0 0 0 1px rgba(100, 255, 218, 0.1);
+    padding: 2.5rem 3rem 3.5rem;
+    position: relative;
+    overflow: visible;
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    transition: 
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.5s ease;
+    border: 1px solid rgba(30, 42, 71, 0.5);
+    backdrop-filter: blur(10px);
+  }
+
+  .container.fully-loaded {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.8),
+      inset 0 0 0 1px rgba(100, 255, 218, 0.2);
+  }
+
+  .container:hover {
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.9),
+      inset 0 0 0 1px rgba(100, 255, 218, 0.3);
+  }
+
+  .profile-top {
+    display: flex;
+    align-items: center;
+    background: rgba(26, 42, 74, 0.6);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    gap: 2rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid rgba(35, 53, 84, 0.5);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.3s;
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+  }
+
+  .profile-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .profile-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.15);
+    border-color: rgba(100, 255, 218, 0.5);
+  }
+
+  .profile-top:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .profile-img {
+    width: 130px;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid rgba(100, 255, 218, 0.5);
+    box-shadow: 0 8px 30px rgba(100, 255, 218, 0.2);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    z-index: 1;
+  }
+
+  .profile-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(100, 255, 218, 0.3);
+    border-color: rgba(100, 255, 218, 0.8);
+  }
+
+  .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .profile-img:hover img {
+    transform: scale(1.1);
+  }
+
+  .profile-info {
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .profile-info h1 {
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 0.3rem;
+    color: #ccd6f6;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(90deg, #ccd6f6, #64ffda);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.4s ease;
+  }
+
+  .profile-info h1::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #64ffda, transparent);
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .profile-top:hover .profile-info h1::after {
+    width: 100%;
+  }
+
+  .profile-info p.title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #8892b0;
+    margin-bottom: 0.8rem;
+    transition: color 0.4s ease;
+  }
+
+  .profile-top:hover .profile-info p.title {
+    color: #a8b2d1;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(10, 25, 47, 0.95);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .modal-content {
+    background-color: rgba(17, 34, 64, 0.9);
+    margin: auto;
+    padding: 2.5rem;
+    border: 1px solid rgba(30, 42, 71, 0.5);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+    position: relative;
+    animation: modalSlideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform: translateY(-30px);
+    opacity: 0;
+    backdrop-filter: blur(10px);
+    border-top: 2px solid rgba(100, 255, 218, 0.3);
+  }
+
+  @keyframes modalSlideIn {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modal.closing .modal-content {
+    animation: modalSlideOut 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes modalSlideOut {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+  }
+
+  .close {
+    color: #8892b0;
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #64ffda;
+    transform: rotate(90deg) scale(1.2);
+  }
+
+ .contact-info {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.05rem;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 0; 
+  }
+
+  .contact-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    user-select: none;
+    position: relative;
+    padding: 0.3rem 0;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    color: #a8b2d1;
+    white-space: nowrap; 
+    min-width: 0; 
+  }
+
+   .contact-info span a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0; 
+  }
+
+  .contact-info span:hover {
+    color: #64ffda;
+    transform: translateX(5px);
+  }
+
+  .contact-info svg {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    flex-shrink: 0; 
+  }
+
+  .contact-info span:hover svg {
+    transform: scale(1.3);
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem;
+    margin: 0;
+  }
+
+  .info-box {
+    background: rgba(26, 42, 74, 0.6);
+    padding: 1.2rem 1.2rem 1.2rem 1.8rem;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid rgba(100, 255, 218, 0.5);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    height: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--delay) * 0.1s);
+    border: 1px solid rgba(35, 53, 84, 0.5);
+    backdrop-filter: blur(5px);
+  }
+
+  .info-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .info-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(100, 255, 218, 0.15);
+    border-color: rgba(100, 255, 218, 0.8);
+    border-left-width: 6px;
+  }
+
+  .info-box:hover::before {
+    opacity: 1;
+  }
+
+  .info-box.active {
+    background: rgba(10, 25, 47, 0.95);
+    border-color: rgba(100, 255, 218, 0.9);
+    box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
+    animation: colorPulse 2s infinite ease-in-out;
+  }
+
+  @keyframes colorPulse {
+    0%, 100% {
+      background: rgba(10, 25, 47, 0.95);
+      box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
+    }
+    50% {
+      background: rgba(15, 30, 60, 0.95);
+      box-shadow: 0 0 40px rgba(100, 255, 218, 0.4);
+    }
+  }
+
+  .section-header {
+    font-weight: 700;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    background: rgba(35, 53, 84, 0.5);
+    border-radius: 8px;
+    color: #ccd6f6;
+    user-select: none;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .info-box:hover .section-header {
+    background: rgba(30, 42, 71, 0.7);
+    color: #64ffda;
+  }
+
+  .info-box.active .section-header {
+    background: rgba(35, 53, 84, 0.8);
+    color: #64ffda;
+  }
+
+  .section-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.8rem;
+    background: linear-gradient(to bottom, #64ffda, #0a192f);
+    border-radius: 8px 0 0 8px;
+    transition: all 0.4s ease;
+  }
+
+  .info-box:hover .section-header::before,
+  .info-box.active .section-header::before {
+    width: 1rem;
+    background: linear-gradient(to bottom, #64ffda, #64ffda);
+  }
+
+  ul {
+    list-style: none;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #a8b2d1;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  ul li {
+    margin-bottom: 0.6rem;
+    padding-left: 1.5rem;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ul li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: #64ffda;
+    transition: all 0.3s ease;
+  }
+
+  .info-box:hover ul li,
+  .info-box.active ul li {
+    color: #ccd6f6;
+    transform: translateX(5px);
+  }
+
+  .info-box:hover ul li::before,
+  .info-box.active ul li::before {
+    transform: scale(1.5);
+  }
+
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleEffect 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    background-color: rgba(100, 255, 218, 0.4);
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes rippleEffect {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    
+    .section-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .profile-top {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+      gap: 1.2rem;
+    }
+    
+    .profile-img {
+      width: 120px;
+      height: 140px;
+      margin: 0 auto;
+    }
+    
+    .contact-info {
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .info-box {
+      padding: 1rem;
+      min-height: 180px;
+    }
+    
+    .section-header {
+      font-size: 1.1rem;
+      padding: 0.4rem 0.8rem 0.4rem 1.5rem;
+    }
+    
+    ul li {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .digital-title {
+      font-size: 2rem;
+      letter-spacing: 0.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 10px;
+    }
+    
+    .container {
+      padding: 1.2rem;
+    }
+    
+    .section-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .info-box {
+      min-height: auto;
+      padding: 1rem;
+    }
+    
+    .profile-info h1 {
+      font-size: 1.6rem;
+    }
+    
+    .profile-info p.title {
+      font-size: 1rem;
+    }
+    
+    .contact-info {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .digital-title {
+      font-size: 1.5rem;
+      letter-spacing: 0.2rem;
+      text-align: center;
+    }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="universe-container">
+    <div class="digital-grid"></div>
+    <div class="digital-wormhole"></div>
+    <div class="digital-title">Zakky Dhiyaulhaq</div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      for (let i = 0; i < 200; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 4 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDelay = Math.random() * 8 + 's';
+        star.style.animationDuration = 10 + Math.random() * 20 + 's';
+        star.style.opacity = Math.random() * 0.5 + 0.1;
+        document.body.appendChild(star);
+      }
+
+      const universe = document.querySelector('.universe-container');
+      for (let i = 0; i < 80; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'digital-particle';
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        particle.style.left = posX + 'vw';
+        particle.style.top = posY + 'vh';
+        const size = Math.random() * 6 + 4;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = 8 + Math.random() * 15 + 's';
+        const hue = 160 + Math.random() * 20 - 10;
+        const saturation = 80 + Math.random() * 20;
+        const lightness = 60 + Math.random() * 20;
+        particle.style.background = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        particle.style.boxShadow = `0 0 ${size*2}px ${size/2}px hsla(${hue}, ${saturation}%, ${lightness}%, 0.7)`;
+        universe.appendChild(particle);
+      }
+
+      setTimeout(() => {
+        document.querySelector('.universe-container').classList.add('hidden');
+        setTimeout(() => {
+          document.querySelector('.container').classList.add('fully-loaded');
+          setTimeout(() => {
+            document.querySelector('.profile-top').style.animation = 'fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+          }, 200);
+        }, 300);
+      }, 2500);
+    });
+  </script>
+
+  <div class="container" role="main" aria-label="Profil Zakky D. dengan informasi dan kelebihan kekurangan">
+    <section class="profile-top" aria-label="Identitas dan kontak pengguna" onclick="openModal()">
+      <div class="profile-img" aria-hidden="true">
+        <img src="img/PPP.png" >
+      </div>
+      <div class="profile-info">
+        <h1>Zakky Dhiyaulhaq</h1>
+        <p class="title">XI-A</p>
+        <div class="contact-info">
+          <span>
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.29 12.29 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.27 12.27 0 0 0 2.81.7 2 2 0 0 1 1.72 2z"/>
+            </svg>
+            <a href="https://wa.me/6285786915331"
+               onclick="event.stopPropagation();" 
+               target="_blank">0857-8691-5331</a>
+          </span>
+          <span>
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37a4 4 0 1 1-7.9 1.7 4 4 0 0 1 7.9-1.7z"/>
+              <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
+            </svg>
+            <a href="https://www.instagram.com/zakkydhq"
+               onclick="event.stopPropagation();" 
+               target="_blank">@zakkydhq</a>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-grid">
+      <article tabindex="0" class="info-box" style="--delay: 1;">
+        <h2 class="section-header">Visi Misi</h2>
+        <ul>
+          <li>Saya memiliki visi untuk menjadi pusat inovasi dan kreativitas dalam bidang publikasi, desain dan dokumentasi. Pemanfaatan media digital berperan penting dalam menyebarkan informasi yang akurat, mendokumentasikan setiap kegiatan sekolah secara profesional.</li>
+          <li>Untuk mencapai visi tersebut saya memiliki misi untuk mengoptimalkan media sosial dan platform digital sekolah, menyediakan dokumentasi yang berkualitas, serta mengembangkan keterampilan anggota dalam bidang desain grafis, fotografi, dan publikasi.</li>
+        </ul>
+      </article>
+
+      <article tabindex="0" class="info-box" style="--delay: 2;">
+        <h2 class="section-header">Pengalaman Organisasi & Kepanitiaan</h2>
+        <ul>
+          <li>Panitia kegiatan desa.</li>
+          <li>Panitia bagian dokumentasi sekolah.</li>
+          <li>Mengelola sosial media kelas.</li>
+          <li>Menjadi desainer kelas saat lomba atau lainnya.</li>
+        </ul>
+      </article>
+
+      <article tabindex="0" class="info-box" style="--delay: 3;">
+        <h2 class="section-header">Kelebihan</h2>
+        <ul>
+          <li>Pandai bersosialisasi</li>
+          <li>Mudah beradaptasi dengan berbagai keadaan.</li>
+          <li>Menguasai berbagai aplikasi desain.</li>
+          <li>Menguasai berbagai aplikasi berbasis editing video & gambar.</li>
+          <li>Disiplin dan bertanggung jawab.</li>
+          <li>Teliti dalam dokumentasi dan detail desain.</li>
+          <li>Mampu bekerja sama dalam tim.</li>
+        </ul>
+      </article>
+
+      <article tabindex="0" class="info-box" style="--delay: 4;">
+        <h2 class="section-header">Kekurangan</h2>
+        <ul>
+          <li>Kadang terlalu fokus pada detail sehingga membutuhkan waktu lebih lama.</li>
+          <li>Masih perlu melatih kepercayaan diri saat berbicara di depan umum.</li>
+        </ul>
+      </article>
+
+      <article tabindex="0" class="info-box" style="--delay: 5;">
+        <h2 class="section-header">Tujuan & Alasan</h2>
+        <ul>
+          <li>Mengembangkan keterampilan di bidang TIK untuk mendukung kegiatan sekolah.</li>
+          <li>Membantu pengelolaan media informasi sekolah (website, sosial media, publikasi digital).</li>
+          <li>Membangun komunitas TIK yang solid, inovatif, dan kreatif.</li>
+          <li>Mendukung OSIS dalam publikasi yang lebih menarik, cepat, dan informatif.</li>
+        </ul>
+      </article>
+
+      <article tabindex="0" class="info-box" style="--delay: 6;">
+        <h2 class="section-header">Rencana Kedepan</h2>
+        <ul>
+          <li>Sebagai sarana mengasah keterampilan dan pengembangan diri. </li>
+          <li>Mengoptimalkan media informasi sekolah dengan baik.</li>
+          <li>Membangun sistem dokumentasi digital yang rapi seperti arsip foto/video kegiatan OSIS yang mudah diakses.</li>
+          <li>Mewujudkan komunitas TIK yang solid dengan budaya kerja sama, saling belajar, dan mendukung perkembangan teknologi di lingkungan sekolah.</li>
+        </ul>
+      </article>
+
+      <article tabindex="0" class="info-box" style="--delay: 7;">
+        <h2 class="section-header">Riwayat Penyakit</h2>
+        <ul>
+          <li>--</li>
+        </ul>
+      </article>
+    </section>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Informasi Tambahan</h2>
+      <p><strong>Instagram:</strong> @zakkydhq</p>
+      <p><strong>Nomor Telepon:</strong> 0857-8691-5331</p>
+      <p><strong>Kelas:</strong> XI-A</p>
+      <p><strong>Deskripsi:</strong> Website ini dibuat karena hobi saya.</p>
+    </div>
+  </div>
+
+<script>
+  function openModal() {
+    const modal = document.getElementById("myModal");
+    modal.style.display = "flex";
+    setTimeout(() => {
+      modal.querySelector('.modal-content').style.animation = 'modalSlideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+    }, 10);
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("myModal");
+    modal.classList.add('closing');
+    setTimeout(() => {
+      modal.style.display = "none";
+      modal.classList.remove('closing');
+    }, 400);
+  }
+
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('myModal');
+    if (event.target === modal && !modal.classList.contains('closing')) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const infoBoxes = document.querySelectorAll('.info-box');
+    let activeBox = null;
+    
+    infoBoxes.forEach(box => {
+      box.addEventListener('click', function(event) {
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        const left = event.clientX - rect.left - size/2;
+        const top = event.clientY - rect.top - size/2;
+        ripple.style.left = left + 'px';
+        ripple.style.top = top + 'px';
+        this.appendChild(ripple);
+
+        ripple.addEventListener('animationend', () => {
+          ripple.remove();
+        });
+
+        const isExpanded = this.classList.toggle('expanded');
+        overlay.classList.toggle('visible', isExpanded);
+        
+        if (isExpanded) {
+          const closeBtn = document.createElement('span');
+          closeBtn.className = 'close-box';
+          closeBtn.innerHTML = '&times;';
+          closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.classList.remove('expanded');
+            overlay.classList.remove('visible');
+          });
+          
+          const header = this.querySelector('.section-header');
+          if (!header.querySelector('.close-box')) {
+            header.appendChild(closeBtn);
+          }
+          
+          infoBoxes.forEach(otherBox => {
+            if (otherBox !== this && otherBox.classList.contains('expanded')) {
+              otherBox.classList.remove('expanded');
+              const otherCloseBtn = otherBox.querySelector('.close-box');
+              if (otherCloseBtn) otherCloseBtn.remove();
+            }
+          });
+        } else {
+          const closeBtn = this.querySelector('.close-box');
+          if (closeBtn) {
+            closeBtn.remove();
+          }
+        }
+      });
+      
+      box.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          box.click();
+        }
+      });
+    });
+    
+    overlay.addEventListener('click', () => {
+      const expandedBox = document.querySelector('.info-box.expanded');
+      if (expandedBox) {
+        expandedBox.classList.remove('expanded');
+        overlay.classList.remove('visible');
+        const closeBtn = expandedBox.querySelector('.close-box');
+        if (closeBtn) closeBtn.remove();
+      }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const expandedBox = document.querySelector('.info-box.expanded');
+        if (expandedBox) {
+          expandedBox.classList.remove('expanded');
+          overlay.classList.remove('visible');
+          const closeBtn = expandedBox.querySelector('.close-box');
+          if (closeBtn) closeBtn.remove();
+        }
+        const modal = document.getElementById('myModal');
+        if (modal.style.display === 'flex') {
+          closeModal();
+        }
+      }
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.querySelector('.box-overlay');
+    const infoBoxes = document.querySelectorAll('.info-box');
+    let currentlyExpanded = null;
+
+    infoBoxes.forEach(box => {
+        box.addEventListener('click', function(e) {
+            if (e.target.classList.contains('close-box')) {
+                return;
+            }
+
+            if (this.classList.contains('expanded')) {
+                return;
+            }
+
+            if (currentlyExpanded) {
+                currentlyExpanded.classList.remove('expanded');
+                const closeBtn = currentlyExpanded.querySelector('.close-box');
+                if (closeBtn) closeBtn.remove();
+            }
+
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+            this.appendChild(ripple);
+
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
+
+            this.classList.add('expanded');
+            currentlyExpanded = this;
+            overlay.classList.add('visible');
+
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'close-box';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.classList.remove('expanded');
+                overlay.classList.remove('visible');
+                closeBtn.remove();
+                currentlyExpanded = null;
+            });
+            
+            const header = this.querySelector('.section-header');
+            header.appendChild(closeBtn);
+        });
+    });
+
+    overlay.addEventListener('click', function() {
+        if (currentlyExpanded) {
+            currentlyExpanded.classList.remove('expanded');
+            const closeBtn = currentlyExpanded.querySelector('.close-box');
+            if (closeBtn) closeBtn.remove();
+            currentlyExpanded = null;
+            overlay.classList.remove('visible');
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && currentlyExpanded) {
+            currentlyExpanded.classList.remove('expanded');
+            const closeBtn = currentlyExpanded.querySelector('.close-box');
+            if (closeBtn) closeBtn.remove();
+            currentlyExpanded = null;
+            overlay.classList.remove('visible');
+        }
+    });
+
+    function openModal() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "flex";
+        setTimeout(() => {
+            modal.querySelector('.modal-content').style.animation = 'modalSlideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+        }, 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("myModal");
+        modal.classList.add('closing');
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('closing');
+        }, 400);
+    }
+
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('myModal');
+        if (event.target === modal && !modal.classList.contains('closing')) {
+            closeModal();
+        }
+    });
+});
+</script>
+</body>
+</html>
